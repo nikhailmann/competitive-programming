@@ -1,6 +1,24 @@
 *These solutions, especially the early ones, are pretty rudimentary and inefficient.
+
 1. Weird Algorithm - simple while loop
+
 2. Missing Number - sorted array, iterate through with a for loop. If ans not found, output either first or last element.
+
 3. Repetitions - Iterate through string with array indexes. Keep track of current repetitions and best with max() function.
+
 4. Increasing Array - cin >> the array. Then use a for loop and increment answer by arr[i-1] - arr[i] if the former is larger.
-5. Permutations - 
+
+5. Permutations - Input into vector. If n is between 1 and 4, there are specific answers (had to hardcode n = 4 in my code). Otherwise, if n is even, 
+switch v[i] and v[i+3] while incrementing i by 2. Ex: 1 2 3 4 5 6 becomes 4 2 6 1 5 3. If n is odd, switch v[i] and v[i+3] AND switch v[i+2] and v[i+4] and
+increment i by 2. Ex: 1 2 3 4 5 becomes 4 2 5 1 3.
+
+6. Number spiral - Vector of pairs to represent input points. Algorithm for output is as follows... 
+Case 1: row >= col and row is even --> ans = row^2 - col-1;
+Case 2: row >= col and row is odd --> ans = (row-1)^2 +1 + col-1;
+Case 3: col > row and col is odd  --> ans = col^2 - row-1;
+Case 4: col > row and col is even --> ans = (col-1)^2 + 1 + row-1;
+
+7. Two knights - Pure math. total # of places - total ways to attack
+total = (k*k)*(k*k - 1)/2; and attack = 4*(k-1)*(k-2); where k is length/width of board.
+
+8. Two sets - 
