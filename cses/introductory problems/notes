@@ -21,4 +21,11 @@ Case 4: col > row and col is even --> ans = (col-1)^2 + 1 + row-1;
 7. Two knights - Pure math. total # of places - total ways to attack
 total = (k*k)*(k*k - 1)/2; and attack = 4*(k-1)*(k-2); where k is length/width of board.
 
-8. Two sets - 
+8. Two sets - Find rem = n%4. If rem == 1 or 2, not possible, but if rem is 3 or 4, it is possible. If 3, input 1 and 2 into set 1 and 3 into set 2. If 4,
+input 1 and 4 into set 1 and 2 and 3 into set 2. Then, for the rest of the numbers, input i and i+3 into set 1 and i and i+2 into set 2, incrementing 
+i by 4 each time.
+
+9. Bit strings - For each binary digit, there are two possible digits: 1 or 0. So from i = 1 to n inclusive, total = total*2 %MOD, where MOD is needed
+bc of overflow. 
+
+10. 
