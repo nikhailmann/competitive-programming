@@ -28,4 +28,15 @@ i by 4 each time.
 9. Bit strings - For each binary digit, there are two possible digits: 1 or 0. So from i = 1 to n inclusive, total = total*2 %MOD, where MOD is needed
 bc of overflow. 
 
-10. 
+10. Trailing Zeroes - There is a certain formula. Start with i = 5 while n/i >= 1, num += n/i. Increment i by a multiple of 5.
+
+11. Coin Piles - Input into vector of pairs. If both piles are zero, YES. If the sum of both piles are less than three, NO. 
+If the sum%3 == 0: if pile 1 >= pile 2 and pile 2 * 2 >= pile 1, YES, otherwise NO. Same thing for if pile 2 > pile 1. If sum%3 != 0, NO.
+
+12. Palindrome Reorder - cin >> string input. Iterate through it, and find the count of each letter A-Z in letters array. Then find evencount and oddcount using letters array. 
+Keep track of the odd index.
+If the size of input is even, if evencount != 26, NO SOLUTION. Otherwise, create a string of half of the letters, then add it to a string of itself reversed.
+If the size of input is odd, if evencount != 25 and oddcount != 1, NO SOLUTION. Otherwise, do the same as even but do not include the letters of the 
+oddindex, then once half is created, add all oddindex letters then add reverse of first half. 
+
+13. 
