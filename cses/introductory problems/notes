@@ -43,9 +43,19 @@ oddindex, then once half is created, add all oddindex letters then add reverse o
 = size to j > 0, if binaryN[j] == binaryN[j-1], v[siz-j] = 0 otherwise = 1. Uses [siz-j] bc we print out answer backwards. Then, set last num of vector to first 
 element of binaryN. Then, print out vector contents backwards. 
 
-14. Tower of Hanoi - Recursive solution. Min movies is always 2^n - 1. Uses solve function with base case n == 1 (where n is num of disks). Solution is stored in
+14. Tower of Hanoi - Recursive solution. Min moves is always 2^n - 1. Uses solve function with base case n == 1 (where n is num of disks). Solution is stored in
 vector of pairs. Solve function takes in sol vector, num of discs, and source, destination, and help towers. If not base case, call solve(sol, n-1, src, help, dest);
 then push back src, dest to vector, then call solve(sol, n-1, help, dest, src); Then, print out vector values as solution. This is better to understand by
 visualizing a solution with a video.
 
-15. 
+15. Creating strings - Sort input string and use next_permutation function. 
+
+16. Apple Division - You have to iterate through all possible subsets using bitsets (this is something you just have to know). Initiates answer as max long long 
+value. Then, iterates through all subsets, then finds the sum of each one, and find the value of the total-sum (which would be value of corresponding subset)
+subtracted by sum, and stores the minimum difference in ans, which is output.
+
+17. Chessboard and Queens - Recursive solution from cses handbook. The board is 8x8 and has 16 downright diagonals and 16downleft diagonals. Uses base case y == n
+if a solution has been found. In each function solve call, iterates through each col (y represents row), and checks if space is free. If it is, it places a 
+queen there and calls function again with updated y+1, col, diag1, and diag2. Then it removes the queen to continue the loop in the current for loop.
+
+18. 
