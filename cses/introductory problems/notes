@@ -58,4 +58,11 @@ subtracted by sum, and stores the minimum difference in ans, which is output.
 if a solution has been found. In each function solve call, iterates through each col (y represents row), and checks if space is free. If it is, it places a 
 queen there and calls function again with updated y+1, col, diag1, and diag2. Then it removes the queen to continue the loop in the current for loop.
 
-18. 
+18. Digit Queries - Probably not best solution. Find the digits of the numbers in the are of the string that k is in using while loop. Once digits is found,
+find the value of k subtracted by lastindex (largest value of numbers of digits in the number 1 less than the digits k is in. Then find toAdd, which the the numbers
+above the number digits-1 represents. Basically, we are trying to find the exact number that index k is part of. We find this number by doing expon(digits-1) + toAdd
+then finding the exact digit of the number by doing rem%digits. Then convert number to a string and cout s[digitOfNumber]
+
+19. Grid Paths - Similar to cses handbook solution. It is important to notice that the end is bottom left, not bottom right, so the symmetry optimization won't work.
+Solve recursive function takes in row, col, and current move number. Base case is when moves == LENGTH of input and r == 6 and c== 0 (end is reached), so ans++;
+Optimizations: 1) if reach end early, return. 2) if can go left or right but not up or down or vice versa, return.
