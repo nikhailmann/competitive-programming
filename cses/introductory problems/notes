@@ -33,10 +33,19 @@ bc of overflow.
 11. Coin Piles - Input into vector of pairs. If both piles are zero, YES. If the sum of both piles are less than three, NO. 
 If the sum%3 == 0: if pile 1 >= pile 2 and pile 2 * 2 >= pile 1, YES, otherwise NO. Same thing for if pile 2 > pile 1. If sum%3 != 0, NO.
 
-12. Palindrome Reorder - cin >> string input. Iterate through it, and find the count of each letter A-Z in letters array. Then find evencount and oddcount using letters array. 
-Keep track of the odd index.
+12. Palindrome Reorder - cin >> string input. Iterate through it, and find the count of each letter A-Z in letters array. Then find evencount and oddcount using
+letters array. Keep track of the odd index.
 If the size of input is even, if evencount != 26, NO SOLUTION. Otherwise, create a string of half of the letters, then add it to a string of itself reversed.
 If the size of input is odd, if evencount != 25 and oddcount != 1, NO SOLUTION. Otherwise, do the same as even but do not include the letters of the 
 oddindex, then once half is created, add all oddindex letters then add reverse of first half. 
 
-13. 
+13. Gray Code - Not the best solution. Input n, from  0 to 2^n exclusive, use convertToBinary function to convert i to binary, find siz = size of number - 1. From j 
+= size to j > 0, if binaryN[j] == binaryN[j-1], v[siz-j] = 0 otherwise = 1. Uses [siz-j] bc we print out answer backwards. Then, set last num of vector to first 
+element of binaryN. Then, print out vector contents backwards. 
+
+14. Tower of Hanoi - Recursive solution. Min movies is always 2^n - 1. Uses solve function with base case n == 1 (where n is num of disks). Solution is stored in
+vector of pairs. Solve function takes in sol vector, num of discs, and source, destination, and help towers. If not base case, call solve(sol, n-1, src, help, dest);
+then push back src, dest to vector, then call solve(sol, n-1, help, dest, src); Then, print out vector values as solution. This is better to understand by
+visualizing a solution with a video.
+
+15. 
