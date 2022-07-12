@@ -1,1 +1,49 @@
+1. Distinct Numbers - input values into set and output size of set
 
+2. Apartments - Input vector of wantsizes and apartment sizes. sort both arrays, then use a for loop to iterate through wantsizes array. Use a while loop and var
+j to keep track of current apartment element in apartment sizes vector (while wantsize[i] - k > apartments[j]). Then, if apartments[j] is between wantsizes[i] minus 
+and plus k, increase answer.
+
+3. Ferris Wheel - vector of kids weights and sort it. See if the first and last element of kids is less than or equal to max weight, and if so, increase j and
+decrease n (j is pointer at start of vector, n is pointer at end of vector: they move towards the middle). If not, then only decrease n (combined is greater than
+max weight). Increase ans no matter what.
+
+4. Concert Tickets - Insert elements into multiset and use upper_bound for each maximum price. If it == s.begin(), print -1, else print *--it; Then erase the one instance of 
+the element from the multiset.
+
+5. Restaurant Customers - Set of arrays of 2 integers. For each customer, insert enter time and 1, and leaving time and -1. Then, iterate through the set and have a value
+c in which the 1 and -1 are added to it (2nd element of array) and maximum c is recorded. This is the max number of customers.
+
+6. Movie Festival - Greedy Algorithm. You always want to choose the movie that ends the earliest. Insert into set by {end time, start time} (sort by end time) 
+and keep track of the last ending time. If the start time of the next movie is greater or equal to the end of the current movie, increase ans;
+
+7. Sum of Two Values - Put values into a map<int,int> in the form of number, index. For each input, try to find m[sum-k], and if found, print the indexes.
+
+8. Maximum Subarray Sum - Read in first value and assign sum and best to that value. Then, input rest of the values and do sum = max(input, sum+input) to determine
+whether to include it in the subarray. Then do best = max(sum, best). This is an important thing to know. 
+
+9. Stick Lengths - You have to use the median for this problem (always optimal). Input the array, sort it, and find the median using the simple formula. Then, iterate back through
+the array, incrementing answer by abs(median - element) on each iteration.
+
+10. Missing Coin Sum - Input coins vector and keep track of total value sum. Sort the vector, and keep a variable answer initally 1. Then, iterate through the vector,
+access the current element, and if ans < curr, then the sum cannot be created, so output ans. Otherwise, do ans += curr and continue. The reasoning for this can be 
+found here: https://www.geeksforgeeks.org/find-smallest-value-represented-sum-subset-given-array/
+
+11. Collecting Numbers 1 - Input first number, if it's not one, increase ans. Keep an array found to keep track of which variables have been found. cin >> the rest of
+the array and for each input, do found[input - 1] = 1(-1 bc array indexes). If curr != 1 and found[curr-2] (the number before the current) hasnt been found yet,
+increase the answer by one.
+
+12. Collecting Numbers 2 - Same thing as collecting numbers 1 to find the original answer. However, also keep track an array of indexes of each number and 
+an array of the numbers at each indexes. Then, for each swap pair, find the numbers at those positions. Use the swap function to swap the positions in 
+the nums array. Then, use a series of comparisons based on indexes and number values to change a variable named change. Then, switch the indexes in the indexes 
+array. Do ans += change and cout ans;
+
+13. Playlist - Use a map<int, int> and a variable to keep track of the last known duplicate of an element. For each value, if it's already in the map,
+then set lastknownduplicate to map[value], and curbest = i (current index) minus lastknownduplicate. Otherwise, just increase curbest by 1. Insert 
+i and map[value] and do best = max(best, curbest). Output best at end.
+
+14. Towers - Use a multiset and insert the first value into the multiset. Initiate ans = 1; Then, iterate through the inputs (k). If k >= largest element
+of set, you have to make a new tower so ans++ and insert k and continue out of the loop. Otherwise, find the upper bound of k in the set 
+(first value greater than k), erase it, and insert k.
+
+15. Traffic Lights 
