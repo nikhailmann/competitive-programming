@@ -8,8 +8,8 @@ and plus k, increase answer.
 decrease n (j is pointer at start of vector, n is pointer at end of vector: they move towards the middle). If not, then only decrease n (combined is greater than
 max weight). Increase ans no matter what.
 
-4. Concert Tickets - Insert elements into multiset and use upper_bound for each maximum price. If it == s.begin(), print -1, else print *--it; Then erase the one instance of 
-the element from the multiset.
+4. Concert Tickets - Insert elements into multiset and use upper_bound for each maximum price. If it == s.begin(), print -1, else print *--it; Then erase the one 
+instance of the element from the multiset.
 
 5. Restaurant Customers - Set of arrays of 2 integers. For each customer, insert enter time and 1, and leaving time and -1. Then, iterate through the set and have a value
 c in which the 1 and -1 are added to it (2nd element of array) and maximum c is recorded. This is the max number of customers.
@@ -22,8 +22,8 @@ and keep track of the last ending time. If the start time of the next movie is g
 8. Maximum Subarray Sum - Read in first value and assign sum and best to that value. Then, input rest of the values and do sum = max(input, sum+input) to determine
 whether to include it in the subarray. Then do best = max(sum, best). This is an important thing to know. 
 
-9. Stick Lengths - You have to use the median for this problem (always optimal). Input the array, sort it, and find the median using the simple formula. Then, iterate back through
-the array, incrementing answer by abs(median - element) on each iteration.
+9. Stick Lengths - You have to use the median for this problem (always optimal). Input the array, sort it, and find the median using the simple formula. Then, 
+iterate back through the array, incrementing answer by abs(median - element) on each iteration.
 
 10. Missing Coin Sum - Input coins vector and keep track of total value sum. Sort the vector, and keep a variable answer initally 1. Then, iterate through the vector,
 access the current element, and if ans < curr, then the sum cannot be created, so output ans. Otherwise, do ans += curr and continue. The reasoning for this can be 
@@ -112,4 +112,34 @@ visualize in your head -- it's better to write it out.
 29. Subarray Divisibility - This is another problem that uses a frequency map but it is kind of hard to understand. It uses modulus logic and solves the problem
 efficiently that way. Need to revisit the approach for this one.
 
-30. Subarray Distinct Values - 
+30. Subarray Distinct Values - A little more complicated than it seems. Use a set and multiset. Uses a two pointers method, where if a bool e is true, it inserts
+rp into the multiset (inserts rp into set regardless), and if the size of the regular set is less than or equal to k, it increments ans by ans + (rb-lb), because
+all of the subarrays within rb and lb will have distinct numbers. Otherwise, it erases v[lb] from the set if it is present in the multiset only once, and removes 
+one instance of it from the multiset. It increments lb by 1, decreases rb by 1 (will remain the same after loop iterates again), and sets e to false. This is also
+one that needs to be visualized.
+
+31. Array Division - Binary search problem. The lb is set to the largest element in the array because that is the minimum possible value ans can be. Our middle bound
+is our current testing point to see if we can make a section of the array that size. Uses a for loop to iterate through and every time sum is greater than 
+middle bound, it creates a divison at that point. At the end of the loop, if divisions > k, the number is too small, so set lb to mb+1 and otherwise if (if the 
+divisions are valid), if ans > mb, set ans = mb, and set rb to mb-1;
+
+32. Sliding Median - There is a very easy approach using an ordered_set and the find_by_order function. You can also use a more tedious approach with
+simpler data structures. In this solution, you have a left set and right set of pairs of integers to store values and indices. There are special
+cases for when k == 1 and k == 2. Otherwise, create a vector of pairs of integers and input the first k numbers and their indices, then sort them. Then, from
+0 to k/2 + (k%2), insert the elements from the vector into the left set, and the rest into the right set. Here, our median of the current window will be 
+the reverse begin of the left set. Then, using a loop, erase the element that is now out of the window from whichever stack it is in. Then, if the new element
+to insert is greater than the last element of left set, insert it into the right set, otherwise insert it into the left. Then, move elements either from left 
+to right or right to left until the size of the left set is k/2+k%2, then output the last element of the left set. 
+
+33. Sliding Cost - Combination of Sliding Median and Stick Lengths problem. Use the same 2 set approach as the last problem. Special cases for k = 1 and 2.
+Essentially, you want to keep track of the sum of the elements in both the left and right sets, then output the following formula using the median, lsum, rsum, 
+and size of each stack: sz(l)*med - lsum + rsum - sz(r)*med. There may be better solutions to this problem. 
+
+34. Movie Festival II - Continuation of movie festiaval 1. Still use a greedy algorithm by sorting vector by end times. But also keep a multiset
+to keep track of the end times of the movies that all of the k people are watching. Then, iterate through each movie time in the vector, and find the 
+upper bound of the start time (if not s.begin()). Then, decrement the pointer by 1 and remove it from the set, then insert the ending time of the current movie
+into the set. The important idea is that you want to use the person who ends the LATEST before the start time of the current movie for an optimal solution.
+
+35. Maximum Subarray Sum II - This is a pretty difficult problem, so look up another solution elsewhere. You bascially make a vector of prefix sums from the
+input, then create a multiset and insert elements from a to b. Then, you start at i, and compare maximum values of ans to the rbegin of the multiset minus 
+v[i-1]. Again, this is a pretty complicated problem, so visualize it better with another solution.
