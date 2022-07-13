@@ -46,4 +46,9 @@ i and map[value] and do best = max(best, curbest). Output best at end.
 of set, you have to make a new tower so ans++ and insert k and continue out of the loop. Otherwise, find the upper bound of k in the set 
 (first value greater than k), erase it, and insert k.
 
-15. Traffic Lights 
+15. Traffic Lights - Create a set and input 0 and x into the set. Then, create a multiset of lengths between each stop and insert x. Iterate through the inputs and
+for each input k, insert it into the set, find what position it is using .find(), and use variables curleft =  k - *prev(it); and curright = *next(it) - k;
+These values are distances that are to the left and right of k (since we split the road up at k). Then we insert those two values into our lengths 
+multiset and erase the total distance (curleft + curright) from our multiset, then output the reverse begin of the multiset. 
+
+16. 
