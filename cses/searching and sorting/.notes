@@ -17,7 +17,7 @@ c in which the 1 and -1 are added to it (2nd element of array) and maximum c is 
 6. Movie Festival - Greedy Algorithm. You always want to choose the movie that ends the earliest. Insert into set by {end time, start time} (sort by end time) 
 and keep track of the last ending time. If the start time of the next movie is greater or equal to the end of the current movie, increase ans;
 
-7. Sum of Two Values - Put values into a map<int,int> in the form of number, index. For each input, try to find m[sum-k], and if found, print the indexes.
+7. Sum of Two Values - Put values into a map<int,int> in the form of number, index. For each input, try to find m[sum-k], and if found, print the indices.
 
 8. Maximum Subarray Sum - Read in first value and assign sum and best to that value. Then, input rest of the values and do sum = max(input, sum+input) to determine
 whether to include it in the subarray. Then do best = max(sum, best). This is an important thing to know. 
@@ -30,12 +30,12 @@ access the current element, and if ans < curr, then the sum cannot be created, s
 found here: https://www.geeksforgeeks.org/find-smallest-value-represented-sum-subset-given-array/
 
 11. Collecting Numbers 1 - Input first number, if it's not one, increase ans. Keep an array found to keep track of which variables have been found. cin >> the rest of
-the array and for each input, do found[input - 1] = 1(-1 bc array indexes). If curr != 1 and found[curr-2] (the number before the current) hasnt been found yet,
+the array and for each input, do found[input - 1] = 1(-1 bc array indices). If curr != 1 and found[curr-2] (the number before the current) hasnt been found yet,
 increase the answer by one.
 
-12. Collecting Numbers 2 - Same thing as collecting numbers 1 to find the original answer. However, also keep track an array of indexes of each number and 
-an array of the numbers at each indexes. Then, for each swap pair, find the numbers at those positions. Use the swap function to swap the positions in 
-the nums array. Then, use a series of comparisons based on indexes and number values to change a variable named change. Then, switch the indexes in the indexes 
+12. Collecting Numbers 2 - Same thing as collecting numbers 1 to find the original answer. However, also keep track an array of indices of each number and 
+an array of the numbers at each indices. Then, for each swap pair, find the numbers at those positions. Use the swap function to swap the positions in 
+the nums array. Then, use a series of comparisons based on indices and number values to change a variable named change. Then, switch the indices in the indices 
 array. Do ans += change and cout ans;
 
 13. Playlist - Use a map<int, int> and a variable to keep track of the last known duplicate of an element. For each value, if it's already in the map,
@@ -80,4 +80,36 @@ is zero (no rooms in use), set roomAssign[index] to roomId, and push the departu
 Otherwise, if there is a room or rooms in use, if the .first value of the priority queue (the departure time) is less than the current arrival time, this means
 the room is free and we can assign that room to the current customer. Otherwise, there are no free rooms and we have to make another room for the customer.
 
-21. Factory Machines - 
+21. Factory Machines - This is a binary search problem. Below a specific time, you can't make enough products, but after a specific time, you can. 
+So, we create our sorted vector and do a standard binary search. Once we have a middle bound, we iterate through the vector and find the total amount of 
+products that we can make in that time, using the variable noOverFlow to prevent ll overflows. We can also prevent this by using a break statement once
+products >= t; After we calculate total products, if products >= t, then we cut off the 2nd half of our data set and if ans > mb, ans = mb. Otherwise, we
+cut out the 1st half of our data set.
+
+22. Tasks and Deadlines - This is a greedy algorithm where the optimal solution is to always pick the event that has the smallest duration.
+
+23. Reading Books - No matter what, minimum time will be AT LEAST the length of the largest book * 2. Otherwise, it is the sum of all of the books.
+
+24. Sum of Three Values - Create a vector of pairs of integers to keep track of numbers and their indices. Then, sort the vector. This approach uses 
+a two pointers-esque method. This approach is O(n^2). The first loop is the left pointer which starts at index 0 and finds the value x - v[lp].first, which
+is the total value needed by the other two elements in the array. Then, use another for-loop starting from lp+1 and a right pointer at n-1. Decrease rp until
+v[i].first + v[rp].first is not greater than x2. If they equal x2, then print out the indices and return. 
+
+25. Sum of Four Values - Same approach as three values but add another loop and add constraints to make sure the pointers don't overlap each other.
+
+26. Nearest Smaller Values - Simple problem using stack data structure. Use a stack of pairs of integers. For each element, while the size of the stack is 
+greater than zero and stack.top().first > current input, pop the top of the stack. Either the size of the stack will be zero or the current element on top of 
+the stack is less than the input value. 
+
+27. Subarray Sums 1 - This is a two-pointers solution. You can also use a frequency map with prefix sums (better), which is shown in the next problem. Read the
+input into a vector, initialize left and right pointers, and while sum < x, increase the right pointer. If sum == x, ans++, and at the end of the loop decrease
+sum by v[lp] (lp will be incremented by 1 every loop). 
+
+28. Subarray Sums 2 - This solution utilizes prefix sums. Create a frequency map of the prefix sums and set mp[0] to 1. Then, iterate through the vector, and 
+update the partial sum by the value in each iteration. Then, increase your answer by mp[partialSum - x], and increment mp[partialSum]++; This is hard to 
+visualize in your head -- it's better to write it out. 
+
+29. Subarray Divisibility - This is another problem that uses a frequency map but it is kind of hard to understand. It uses modulus logic and solves the problem
+efficiently that way. Need to revisit the approach for this one.
+
+30. Subarray Distinct Values - 
