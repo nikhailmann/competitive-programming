@@ -51,4 +51,33 @@ for each input k, insert it into the set, find what position it is using .find()
 These values are distances that are to the left and right of k (since we split the road up at k). Then we insert those two values into our lengths 
 multiset and erase the total distance (curleft + curright) from our multiset, then output the reverse begin of the multiset. 
 
-16. 
+16. Josephus Problem 1 - Create vector of numbers, then use a while loop while the size is greater than one. Use a for loop to print the current round of numbers
+and put the rest of the numbers in another 'survivors' vector. Afterwards, if the initial vector was even, our vector just becomes the survivors vector.
+However, if it is of odd size, we have to insert the last element of our survivors vector to the beginning of it, then repeat the loop.
+
+17. Josephus Problem 2 - Use an ordered_set policy-based data structure for efficiency. Insert all of our elements into the ordered set, then define a value p that equals 
+k % n. Use the find_by_order function to print out the value at position p in the set, erase that element, and do p = (p+k) % s.size, making sure 
+that s.size() is greater than zero.
+
+18. Nested Ranges Check - Complicated Problem. We define a range struct with int left, right, and the original index of the variable (because we sort them).
+We also redefine the comparison/sort operator so that if the left values are tied, we sort the right values by whichever one is greater (this is important
+for our algorithm). First, we create a vector of ranges and insert our values. Then, we sort the vector. Firstly, to determine if our ranges are contained
+by another range, define a variable max for the largest right bound. The way our vector is sorted, if inputs[i].r <= maxi, then that range has to be 
+contained by another. Otherwise, we update our max right bound variable. We store these results into our contained array, to be printed later. Next, to 
+determine if our ranges contain another range, define a variable min for our minimum right bound and iterate through the vector starting from the back. 
+Again, based on the way we sorted our vector, if inputs[i].r >= mini, then it must contain another range. Note: we update the contains and contained array
+through our .index range variable, as we have to remember the original index of our input ranges. 
+
+19. Nested Ranges Count - Harder, more complicated problem. Use the same range struct and vector of ranges, but also use an ordered_set of pairs of 
+integers. Input and sort the same way as problem 18. For contained, use a for loop and insert inputs[i].r and -1*i into our set. Based on the way 
+an ordered set works, we set contained[original index] to the size of the set minus the order_of_key of the inserted values. We do the same thing for 
+contains except we start at the back of our vector, and we set contained[original index] only to the order_of_key of the inserted values.
+
+20. Room Allocation - Another pretty complicated problem. Use a vector of pairs of pairs to store enter time, leaving time, and index, then sort the vector.
+Make another vector for the assignment of the rooms, each value initialized at -1. Make a variable roomId that represents the current room that has not been 
+in use yet, starting at 1. Then, make a priority queue of pairs where the smallest value is on top. Then, iterate through every customer. If the size of the priority queue
+is zero (no rooms in use), set roomAssign[index] to roomId, and push the departure time and the roomId onto the priority queue, and increase roomId by one. 
+Otherwise, if there is a room or rooms in use, if the .first value of the priority queue (the departure time) is less than the current arrival time, this means
+the room is free and we can assign that room to the current customer. Otherwise, there are no free rooms and we have to make another room for the customer.
+
+21. 
