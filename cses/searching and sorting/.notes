@@ -80,4 +80,4 @@ is zero (no rooms in use), set roomAssign[index] to roomId, and push the departu
 Otherwise, if there is a room or rooms in use, if the .first value of the priority queue (the departure time) is less than the current arrival time, this means
 the room is free and we can assign that room to the current customer. Otherwise, there are no free rooms and we have to make another room for the customer.
 
-21. 
+21. Factory Machines - 
