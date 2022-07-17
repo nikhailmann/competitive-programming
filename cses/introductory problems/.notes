@@ -4,7 +4,7 @@
 
 2. Missing Number - sorted array, iterate through with a for loop. If ans not found, output either first or last element.
 
-3. Repetitions - Iterate through string with array indexes. Keep track of current repetitions and best with max() function.
+3. Repetitions - Iterate through string with array indices. Keep track of current repetitions and best with max() function.
 
 4. Increasing Array - cin >> the array. Then use a for loop and increment answer by arr[i-1] - arr[i] if the former is larger.
 
