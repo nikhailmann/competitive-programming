@@ -34,7 +34,7 @@ const int INF = 1e9;
 
 // you can also use "Towers" problem code changing upper bound to lower bound, although this problem is way harder to understand for some reason
 // https://www.youtube.com/watch?v=66w10xKzbRM
-
+//On editorial solution -- the *it = x just changes the value at *it (the lower bound of current element) to the current input
 int main()
 {
     ios::sync_with_stdio(0);
