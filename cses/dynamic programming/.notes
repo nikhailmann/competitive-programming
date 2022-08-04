@@ -1,1 +1,18 @@
 1. Dice Combinations
+
+18. Counting Tilings -- Probably the hardest problem in this set. Very hard to wrap your head around, especially if you aren't super intuitive about bitwise operations.
+See the comments in the actual code for more information (not the large paragraph before the code).
+Think about the constraints - n is small and m is large. We can use this for optimization. This problem requires bitmasking. We can build a solution by constructing 
+columns one by one. Each block of a column can either be filled or unfilled. We can model all of these possible combinations by using a bitmask. Since each 
+column is of height n, there are 2^n possible combinations for each column (subsets). It is important to know the state of the previous column for each one we are 
+building so we can know what blocks are already filled (like in a horizontal tile). We initialize our 2d dp array with [1001][1<<11]. The second dimension
+is the maximum possible combinations of each column 2^10 since n is at most 10, plus one because that is how the code checks if a mask is valid.
+First, we read in the data and initialize our dp array with the values being -1. Then we call our solve functions with initial column 1 and mask of 0 
+(because the current first column is empty). The first two if statement blocks are just for our base case for recursion and incorporating dynamic programming. 
+Then, we use the gen next masks function to generate all possible masks using the current mask and places them in a vector, then it iterates through that 
+vector and increments answer by calling solve of the next column using the current next_mask. It does this until it's gone through every possible combination and 
+returns the answer. The gen next masks function uses set bits to determine whether it can't place a tile (already occupied) for each block of a column, whether a 
+mask has been created (pushes back onto vector), and if it can place a vertical or horizontal tile. 
+***In the fourth block, the  next_mask + (1 << i) call will make the block at row i in next_mask one to represent the other half of the horizontal block.*** 
+This is somewhat confusing, but you have to realize the difference between current_mask, the mask we're currently on, and next_mask, the mask(s) we're
+building to put into our vector and use to form other masks. Also, the condition in our base case will ensure that no horizontal blocks are placed past the edges.
