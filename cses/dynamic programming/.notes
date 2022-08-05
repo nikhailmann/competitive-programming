@@ -51,12 +51,28 @@ using the base case of having a 2x2 square and how many different arrangements y
 10. Edit Distance -- Classic problem. Input two string and create variables for the size of each of them. Use a 2d dp vector of size [n+1][m+1], setting 
 every value to INF (we are minimzing edit distance). dp[i][j] represents minimum moves to make a[0->i] into b[0->j]. Set dp[0][0] = 0. Use 2 nested for loops
 using i from [0, size of str1] (inclusive) and j from [0, size of str2]. For each operation, we can either: delete the last character of str1, which is modeled by
- dp[i][j] = min(dp[i][j], dp[i-1][j] +1); add a character at the end of str1, which is modeled by dp[i][j] = min(dp[i][j], dp[i][j-1] +1); or modify the last value
- of str1 to match str2. We can do this by seeing whether str1[i-1] == str2[j-1]. If it is, this costs 0 operations, and otherwise to change it would cost 1. 
- Then, we set dp[i][j] to min of dp[i][j] and dp[i-1][j-1] + 0 or 1 dependent on condition stated in last sentence. The result is found by dp[n][m], where n
- is the size of str1 and m is the size of str2.
+dp[i][j] = min(dp[i][j], dp[i-1][j] +1); add a character at the end of str1, which is modeled by dp[i][j] = min(dp[i][j], dp[i][j-1] +1); or modify the last value
+of str1 to match str2. We can do this by seeing whether str1[i-1] == str2[j-1]. If it is, this costs 0 operations, and otherwise to change it would cost 1. 
+Then, we set dp[i][j] to min of dp[i][j] and dp[i-1][j-1] + 0 or 1 dependent on condition stated in last sentence. The result is found by dp[n][m], where n
+is the size of str1 and m is the size of str2.
  
- 11. Rectangle Cutting -- 
+11. Rectangle Cutting -- Pretty simple problem once you draw it out. Use a 2d vector of size [a+1][b+1]. Loop through all values using 2 nested for loops, and 
+if i == j, then you already have a square, so you set dp[i][j] = 0, otherwise set it to infinity. If you set it to infinity, then use two for loops using a 
+variable k that iterates through i and j separately to model cutting the rectangle of that size at position i or j. Each time, set dp[i][j] to the minimum of 
+either dp[k][j] + dp[i-k][j] + 1 for the first loop, or dp[i][k]+dp[i][j-k]+1 for the second for loop. The idea is that if you make a cut at position k horizontally
+(on side i), you will create two new rectangles of size dp[k][j] and dp[i-k][j], and add one because the cut itself is a move. Do the same 
+for cutting vertically (on side j). Print dp[a][b] as your answer. 
+ 
+12. Money Sums -- This is another 0-1 knapsack dp problem. Again, we can administer the solution on page 73 of the CSES handbook. So, we use a 1d dp array of size
+max_sum + 1, and max_sum is calculated by n* 1000 (1000 is the max value of x). Other solutions may use a 2d dp array. Initially, we set all values of the dp
+vector to 0, and initially set dp[0] to 1 as our base case (you can make sum zero -- the format is dp[num] = 1 if you can make the sum, and zero 
+otherwise). To fill the dp vector, you iterate through all of the coins and for each coin, use a variable j starting at max_sum that decreases as long as it is 
+greater than or equal to coins[i]. Essentially, you want to set dp[j] to a something other than zero dependent on if it's already been found dp[j] 
+OR (||) seeing if dp[j-coins[i]] has been found, meaning that you can create sum dp[j] by using that coin. Then, create a vector ans, and iterate through 
+all possible sums from 1 to max_sum, and if dp[i] is greater than zero, then you can make that sum, so you add it to your answer vector. Then, you output
+the size of your answer vector and afterwards print every value in it.
+ 
+13. Removal Game -- 
  
 18. Counting Tilings -- Probably the hardest problem in this set. Very hard to wrap your head around, especially if you aren't super intuitive about bitwise operations.
 See the comments in the actual code for more information (not the large paragraph before the code).
