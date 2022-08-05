@@ -3,15 +3,31 @@ n by going through all rolls from 1 to 6 for each number. If the current number 
 because, for instance, if i = 4, if you roll a 2, since 4-2 = 2, there are dp[2] ways to roll the 2 needed to create 4. Do this for every possible dice roll, and since
 you are building the dp array from 0 to n, there won't be any problems.
 
-2. Input variables and all coin values into a coins(n) vector. Make your long long dp vector of size x+1 since you want dp[x] and you initialize dp[0] to 0 (for 
-value [0], the minimum number of coins needed to make it is 0). Set every value of dp to INF besides dp[0]. Then, loop from i=1 to target value, and for each value 
-i, loop through the coins array and set dp[i] to the minimum value of dp[i] and dp[i-c] if i-c is at least 0. At the end, if dp[x] = INF, print -1, else just print 
-dp[x].
+2. Minimizing Coins -- Input variables and all coin values into a coins(n) vector. Make your long long dp vector of size x+1 since you want dp[x] and you initialize 
+dp[0] to 0 (for value [0], the minimum number of coins needed to make it is 0). Set every value of dp to INF besides dp[0]. Then, loop from i=1 to target value, 
+and for each value i, loop through the coins array and set dp[i] to the minimum value of dp[i] and dp[i-c] if i-c is at least 0. At the end, if dp[x] = INF, print -1, 
+else just print dp[x].
 
-3. This is similar to the last problem, but don't set every value of dp to INF, and dp[0] = 1, because there are 1 distinct ways to create value 0. Do the same loop
-but as long as i-c >= 0, just do dp[i] += dp[i-c];
+3. Coin Combinations I -- This is similar to the last problem, but don't set every value of dp to INF, and dp[0] = 1, because there are 1 distinct ways to create 
+value 0. Do the same loop, but as long as i-c >= 0, just do dp[i] += dp[i-c];
 
-4. 
+4. Coin Combinations II -- The last problem but you have to count the distinct ordered number of ways. Surprisingly, you can actually do this just by switching
+the order of the two loops -- that way it ensures it prints distinct solutions with the coins in increasing order. 
+
+5. Removing Digits -- Create a dp vector of size 10^6 + 1 (aka max N + 1) and initalize dp[0] = 0: you need 0 steps to make [0] equal to zero. Then, iterate from
+i = 1 to n inclusive, first setting dp[i] to INF, then make a value i2 = i. This is confusing to understand at first, but it comes really clear once you remember
+that you are using dynamic programming. Essentially, you use i2 to go through every digit of the current i, and you set dp[i] to the minimum value between
+dp[i] and dp[i-(i2%10)] + 1. Remember, i2%10 is just the first digit of i2, and i - that value is the number you'd get from subtracting that digit, then you add 1
+because subtracting that value in the first place is a step in itself. Then, you do i2 /= 10 to move onto the next digit, and do this for every digit of i using i2
+to find the minimum value. This works because you are building the dp vector from 0 to n, so there will always be a value for dp[i-(i2%10)].
+
+6. Grid Paths -- Create an array of strings to represent the board and input it in. Create a ll dp array of boundaries [1000][1000] (max grid size) to represent
+coordinates of the grid. Set dp[0][0] = 1 because there is only one way to get to 0, 0. Then, iterate through the entire board using 2 nested for loops i and j
+from 0 to n. If board[i][j] = '*', this is a trap, and you can't move there, so set dp[i][j] to 0 there. Otherwise, do dp[i][j] += dp[i-1][j] (moving from square
+above) if i > 0 (not on top of grid) and += dp[i][j-1] (moving from square to the left) if j > 0 (not on right edge of grid). Do modulo operation each time 
+and output answer as dp[n-1][n-1].
+
+7. Book Shop -- 
 
 18. Counting Tilings -- Probably the hardest problem in this set. Very hard to wrap your head around, especially if you aren't super intuitive about bitwise operations.
 See the comments in the actual code for more information (not the large paragraph before the code).
