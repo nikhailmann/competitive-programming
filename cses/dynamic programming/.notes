@@ -1,3 +1,4 @@
+A great resource is the cses dp editorial blog on codeforces. 
 1. Dice Combinations -- Simple dp problem. Initialize dp[num] array with dp[0] = 1 (1 way to roll 0). Then, use 2 nested for-loops to build the dp array up to 
 n by going through all rolls from 1 to 6 for each number. If the current number i minus the current roll j is at least zero, then set dp[i] += dp[i-j]. This is 
 because, for instance, if i = 4, if you roll a 2, since 4-2 = 2, there are dp[2] ways to roll the 2 needed to create 4. Do this for every possible dice roll, and since
@@ -27,8 +28,36 @@ from 0 to n. If board[i][j] = '*', this is a trap, and you can't move there, so 
 above) if i > 0 (not on top of grid) and += dp[i][j-1] (moving from square to the left) if j > 0 (not on right edge of grid). Do modulo operation each time 
 and output answer as dp[n-1][n-1].
 
-7. Book Shop -- 
+7. Book Shop -- This is a 0-1 knapsack problem, a common type of dp problem. First, input variables and create vectors for prices and pages of books. Make a dp
+vector of size 100001 (aka max X + 1). This is a cool way of solving this problem showcased in the cses handbook on page 73 using only a 1d array: other 
+solutions use a 2d array for dp. Basically, it iterates using 2 nested for loops, the outer going from i=0 to n-1, and for each i, it sets a value j equal to
+the max spending price x and decrements j each iteration as long as j is at least the price of book i. Then, it sets dp[j] (j = price) to the max of dp[j]
+and dp[j-prices[i]] + pages[i]. Essentially, whether you don't buy the book (keep dp[j]), or whether you buy the book (the pages of dp[j-price of book i] plus 
+the pages gained by buying book i. For each value i it updates the array from left to right. This may be somewhat hard to understand without visualizing it.
 
+8. Array Description -- Input variables, array into values vector and create a 2d dp vector of size [n][m+1], setting each value to 0. The dp array works like
+dp[i][j] = number of ways to fill array up to index i if the value at that index is j. For the first number in the array: if it is 0, then it can be any number, 
+so dp[0][0] to dp[0][m] should all be set to one. Otherwise, if the value is already set, then dp[0][values[0]] = 1, since there's only one possibility. 
+Then, iterate through the rest of the array values, and if the value is 0, then from j = 1 to j = m, increment dp[i][j] by dp[i-1][j] (the index before if it's
+the same number), dp[i-1][j-1], and dp[i-1][j+1] (if j-1 >= 1 and j+1 <= m). Remember -- we can only have adjacent values, so we only looks at values that 
+are either 1 below, 1 above, or equal to j. Otherwise, if values[j] != 0, we find the value and increment dp[i][values[i]] by values[i] minus 1, plus 1, and equal
+(if it fits constraints). No for loop is needed since the value is locked in. Then, we set our ll ans and iterate from int i = 1 to i = m inclusive and increment
+answer by dp[n-1][i] because the last value of our array could be anything if there are enough zeros in the input array. Then, output answer. Use %= MOD throughout
+the code, as is the same for many of these problems.
+
+9. Counting Towers -- This is a pretty tricky problem with a cool solution, but that solution almost definitely needs a visualization. It involves 
+using the base case of having a 2x2 square and how many different arrangements you can have with that (8). Video link: https://www.youtube.com/watch?v=MxhA0bY31wM
+
+10. Edit Distance -- Classic problem. Input two string and create variables for the size of each of them. Use a 2d dp vector of size [n+1][m+1], setting 
+every value to INF (we are minimzing edit distance). dp[i][j] represents minimum moves to make a[0->i] into b[0->j]. Set dp[0][0] = 0. Use 2 nested for loops
+using i from [0, size of str1] (inclusive) and j from [0, size of str2]. For each operation, we can either: delete the last character of str1, which is modeled by
+ dp[i][j] = min(dp[i][j], dp[i-1][j] +1); add a character at the end of str1, which is modeled by dp[i][j] = min(dp[i][j], dp[i][j-1] +1); or modify the last value
+ of str1 to match str2. We can do this by seeing whether str1[i-1] == str2[j-1]. If it is, this costs 0 operations, and otherwise to change it would cost 1. 
+ Then, we set dp[i][j] to min of dp[i][j] and dp[i-1][j-1] + 0 or 1 dependent on condition stated in last sentence. The result is found by dp[n][m], where n
+ is the size of str1 and m is the size of str2.
+ 
+ 11. Rectangle Cutting -- 
+ 
 18. Counting Tilings -- Probably the hardest problem in this set. Very hard to wrap your head around, especially if you aren't super intuitive about bitwise operations.
 See the comments in the actual code for more information (not the large paragraph before the code).
 Think about the constraints - n is small and m is large. We can use this for optimization. This problem requires bitmasking. We can build a solution by constructing 
