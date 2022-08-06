@@ -98,7 +98,22 @@ finds the position that input x would be at in the dp vector. If the position ==
 to x, because for longest increasing subsequence its better to have a smaller element since you can fit more larger elements in the dp array afterwards. This is a
 hard problem to understand, so watch a video on it. Also, learn the n^2 solution first.
 
-16. 
+16. Projects -- Create a 2d vector (vector of vectors of 3 integers) to store end time, start time, and reward in that order. Sort the vector by end time. Create 
+a ll ans and a set of pair<ll,ll> as your dp. The dp will represent {end time, score}. Insert {0, 0} into the dp set to start. Then, using a for loop from 1 to n,
+find the lower bound of the start time for the current project (first value not less than start time), and subtract it by one. Then, set ans to the max between ans
+(don't do that project) or (*it).second (aka the score you would get by ending before (as 'before' as possible) the curent project's start time, plus the score 
+you get for doing the current project. Then, insert the end time of the current project and ans (max score) into the set. At the end of the loop, print out 
+ans. This problem is pretty easy once you visualize it, here is a good video: https://www.youtube.com/watch?v=MJn3ogwsUbo
+
+17. Elevator Rides -- This problem is somewhat hard and involves bitwise operations. The idea is that you want to go through all possible subsets to find the best
+answer. Declare your dp vector as a vector of pairs of long longs of size 1<<n (aka 2^n, the number of subsets + 1). The solution is also shown in the CSES handbook.
+The way the dp vector works is dp[i] = {totalNumberofRides, weight of Last ride}. This video is very good: https://www.youtube.com/watch?v=O7oweBw43YM. Basically,
+you use 2 nested for loops and the standard code to iterate through all possible subsets using bitwise operations, and if the bit is set, you use XOR operation
+auto test = dp[i^(1<<j)] to go through the possible combinations of elevators beforehand (they are already calculated in our dp array before... watch the video), and
+if the weight of the current passenger weight[j] added to test.second is <= max weight, then we just add it to test.second. Otherwise, we have to add another ride
+by doing test.first++; and setting test.second to weight[j] (it is the only person on the new ride). Then, we do dp[i] = min(dp[i], test); It is important to note 
+that this works because for every iteration of the outer loop we set dp[i] to {INF (or n+1), INF}, and it will go through every possible combination to find the best
+one. Then, print out dp[(1<<n)-1].first as your answer. 
 
 18. Counting Tilings -- Probably the hardest problem in this set. Very hard to wrap your head around, especially if you aren't super intuitive about bitwise operations.
 See the comments in the actual code for more information (not the large paragraph before the code).
@@ -116,3 +131,5 @@ mask has been created (pushes back onto vector), and if it can place a vertical 
 ***In the fourth block, the  next_mask + (1 << i) call will make the block at row i in next_mask one to represent the other half of the horizontal block.*** 
 This is somewhat confusing, but you have to realize the difference between current_mask, the mask we're currently on, and next_mask, the mask(s) we're
 building to put into our vector and use to form other masks. Also, the condition in our base case will ensure that no horizontal blocks are placed past the edges.
+
+19. Counting Numbers -- 
