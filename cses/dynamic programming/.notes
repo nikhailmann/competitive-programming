@@ -132,4 +132,26 @@ mask has been created (pushes back onto vector), and if it can place a vertical 
 This is somewhat confusing, but you have to realize the difference between current_mask, the mask we're currently on, and next_mask, the mask(s) we're
 building to put into our vector and use to form other masks. Also, the condition in our base case will ensure that no horizontal blocks are placed past the edges.
 
-19. Counting Numbers -- 
+19. Counting Numbers -- A respectably hard problem, but not too bad at all once thought about logically. This isn't really much of a dp problem either. 
+Observations:
+If you know solve(0)... solve(n), you can calculate the answer between num a and b by doing solve(b) - solve(a-1). For example, if a = 2 and b = 4, solve(b) = 5, 
+solve(a-1) = solve(1) = 2. 5 - 2 is 3, which is the answer.
+If you have an m digit number, for instance if m=2 digits, then you could choose 1-9 for the first digit, then 0-9 for the second digit EXCEPT not the 
+digit you chose for the first, so there are 9 x 9 possible 2 digit numbers that satisfy this. For any # digits m, the amount is 9^m. dp[digit] = number of numbers 
+that satisfy constraints. 
+For any number n, ex 321, you know that it (from 0 to n), it contains at least all the answers from the digits below the digits of n. ex, 1 (0) + 9 (1 digit) + 
+9x9 (2 digit numbers). For the rest of the numbers for n = 321, you start with 1 or 2 for the third digit (cant use 3) x 9 x 9 for the other 2 digits, 
+aka 2 x dp[2], where dp[2] = 9x9. Then once you reach three for the 3rd digit 3 _ _, you move on to the next place, where you can choose 2 numbers (0 or 1 since 
+they're less than 2), or 2 x dp[1] = 2 x 9. Then move to the last digit and do the same to get 1 x dp[0] = 1. Then, if the number itself is applicable,
+you can include that. Then, if 321 represented number b, then you would do the same for number a-1. This video shows this solution pretty clearly:
+https://www.youtube.com/watch?v=TN0qGN0YqDQ. You calculate dp[i] from 0 to 18, since that is the maximum constraint. Also, if the number <= 0, return 1 if it equals
+0, and otherwise return -1 since you have nothing (this is because the min value is 0, and if a = 0, 0 - 1 is -1, which isn't in the bounds, so you just return 0
+to not count it). Then, find the number of digits by converting it into a string and finding the size, then iterate from int i = 0 to i < digits and increase
+answer by dp[i]. Now for the important parts. We can convert a char to an int by doing int currDigit = numberString[i] - '0'; We define a variable prev
+which is initially the first digit of our number. We use this to keep track of whether the number itself has no adjacent digits that are the same. We iterate
+through each digit. Originally, we subtract it by 1. This is to account for the fact that in the first digit, you can't include zero. However, this is also 
+to account for the idea that if the previous digit is less than the current digit, then we can't have current digit or previous digit as one of our numbers.
+So, if i > 0 and prev >= currdigit, then we increase it by 1 (it would be the same). Then, we increase ans by this number * dp[digits-i-1] in accordance with our 
+formula. Finally, if we find that the previous digit and currdigit are the same, then we immediately return our answer because ALL FUTURE NUMBERS will have 
+these adjacent digits that are the same, so we don't count them. Otherwise, if the number itself is valid, then at the end of the loops we return ans+1 to 
+count for the number itself. Do the above process for both input numbers, a-1 and b and return ans(b) - ans(a-1) and output that for your answer. 
