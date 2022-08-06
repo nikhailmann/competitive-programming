@@ -72,8 +72,34 @@ OR (||) seeing if dp[j-coins[i]] has been found, meaning that you can create sum
 all possible sums from 1 to max_sum, and if dp[i] is greater than zero, then you can make that sum, so you add it to your answer vector. Then, you output
 the size of your answer vector and afterwards print every value in it.
  
-13. Removal Game -- 
- 
+13. Removal Game -- You can see this video: https://www.youtube.com/watch?v=WxpIHvsu1RI for a good explanation. The dp vector is a vector of vector of 
+pairs of integers, .first representing the value the player who's turn it currently is, and the .second representing the value taken by the other player.
+Essentially, you use left and right bounds, using 2 nested for loops starts at int i = n-1 and goes to 0, and the second starts at int j = i and goes to n.
+If j == i, then there is only one element in the current bound, so you set dp[i][j].first to the value (x[i]) and .second to 0 (the 2nd player doesn't get 
+to pick anything). Otherwise if j != i, then player one would pick the best value between dp[i+1][j].second + x[i] or dp[i][j-1].second + x[j]. Basically, the first
+expression is if they chose the item on the left end (x[i]) and would subsequently get the .second value of the remaining array that goes from i+1 to j, and vice 
+versa if the better option is to pick the element at index j. Then, if they picked the item at index i, the 2nd player's turn will be (dp[i][j].second), which should
+be set to dp[i+1][j].first, since they get the first pick in the new sized array. Vice versa if you pick the item at index j. The answer will be dp[0][n-1].first.
+DP format: dp[i][j].first means the maximum score for player 1 from indexes i to j, inclusive. 
+
+14. Two Sets II -- This is another knapsack problem, though it may not seem like it at first glance. First, calculate the sum using formula (n*n+1)/2, then 
+If the sum is odd, then two sets can't be created evenly, so output 0. Otherwise, divide sum by 2 (since you're dividing the total sum evenly into two  sets). 
+The dp array is a 2d vector of long longs, size [n][sum+1] (after sum was divided by 2), with every value initially zero. Initally, set dp[0][0] to 1.
+For our dp vector, dp[i][j] represents the amount of ways to create sum j using numbers from 1 up to i. Then, use two nested for loops and iterate from 1 to n, 
+with the inner loop going from 0 to sum inclusive. Either we include or don't include num i. If we don't, we do dp[i][j] += dp[i-1][j] (we can still create 
+the same values we could from 1 to i-1. If we include, if j - i >= 0, then we do dp[i][j] += dp[i-1][j-i], because by including num i we add the number of ways
+to create j - i (the current sum minus the current num) from numbers 1 to i-1. Use modulo operations, and at the end, print dp[n-1][sum].
+
+15. Increasing Subsequence -- A pretty hard to understand problem with the required time complexity, n log n. There is a more understandable n^2 solution which
+is probably better to know. Also, the problem "Towers" from searching and sorting solves this problem, you just have to change upper_bound to lower_bound (though
+in my opinion the towers solution is way easier to understand for the specific problem than the actual dp solution for this problem). Essentially, we read in the 
+input one at a time, and for each input x, we find lower_bound(dp.begin(), dp.end(), x) - dp.begin() in our dp array, which is initally empty. This code essentially
+finds the position that input x would be at in the dp vector. If the position == dp.size(), then we insert it into our dp array. Otherwise, we set dp[position] equal
+to x, because for longest increasing subsequence its better to have a smaller element since you can fit more larger elements in the dp array afterwards. This is a
+hard problem to understand, so watch a video on it. Also, learn the n^2 solution first.
+
+16. 
+
 18. Counting Tilings -- Probably the hardest problem in this set. Very hard to wrap your head around, especially if you aren't super intuitive about bitwise operations.
 See the comments in the actual code for more information (not the large paragraph before the code).
 Think about the constraints - n is small and m is large. We can use this for optimization. This problem requires bitmasking. We can build a solution by constructing 
