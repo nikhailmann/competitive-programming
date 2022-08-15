@@ -1,4 +1,6 @@
 I coded these solutions using Java to refamiliarize myself with the language before college.
+
+
 WEEK 1 (75 questions version)
 
 1. Two Sum - Create a HashMap<Integer, Integer> to store each (number, index) in the array. Iterate through the entirety of nums, and set target2 to the value of
@@ -33,3 +35,29 @@ variable to store one of the subtrees to be able to do this.
 7. Valid Anagram - Converted both strings to arrays of chars using .toCharArray(). Then, sort the arrays using built in Arrays.sort, create new Strings by doing
 String s2 = new String(char array) for both char arrays. If they are equal (remember to use .equals() not == for Strings), return true, otherwise return false.
 
+8. Binary Search - Plain binary search. Something to remember is that when changing the bounds you should do lp = mid + 1 or rp = mid - 1, not just lp = mid etc.
+
+9. Flood fill - Recursive solution. Find the original color of the source square, and if it's already the color, just return the image. Find the length and width
+of the image, then use the floodFillAux with image, sr, sc, original color, color to change to, l, and w. First, change image[sr][sc] to the color, then, dependent
+on bounds, do the same for all 4 directions if it's in the bounds of the image and the pixel at those coordinates are the original color. If none of the conditions 
+are met, just return. 
+
+10. Maximum Subarray - Classic problem. Keep 2 variables, sum and best. First, assign sum and best to nums[0]. Then, read in the rest of the array, and set
+sum to the max of nums[i] and sum+nums[i], and best to the max of best and sum. Return best at the end. 
+
+11. Lowest Common Ancestor of a Binary Search Tree - Use a while loop. While root.left and root.right != null, if p.val is less than or equal to root.val AND
+q.val is greater than or equal to root.val or vice versa, return the root (they are on different sides of that root, so that root has to be the LCA. Otherwise,
+if both values are less than the root, set root = root.left. Otherwise, set root = root.right. 
+
+12. Balanced Binary Tree - Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firsly, if the initial root is null, then 
+just return true. Otherwise, use recursion and an auxillary function isBalancedAux. This function just calculates the height of a tree. We calculate the height 
+of the left and right subtree from the root, and if the absolute value of their difference is <= 1, then the ROOT is balanced. However, we also have to make sure 
+that EVERY node in the tree is also balanced, so we also have to check isBalanced(root.left) and isBalanced(root.right) -- this will check every node in the 
+original tree.
+
+13. Linked List Cycle - My original and much slower solution used an ArrayList to keep track of what nodes we had visited so far, and if we ended up at one 
+that was visited again, there would be a cycle and we would return true, otherwise return false. A much better solution is 2 pointers with a slow pointer and 
+fast pointer. Firstly, if head is null, return false. Then, we create 2 ListNodes, slow and fast, and set slow = head and fast = head.next. The slow pointer
+will move one step at a time while the fast pointer will move two steps at a time. If there is a cycle, the fast pointer will eventually catch up to the slow one.
+If fast or fast.next ever equals null, then there is no cycle, so we return false. If we find that slow = fast, this means that the fast pointer has caught up, 
+meaning that there has to be a cycle, so return true. 
