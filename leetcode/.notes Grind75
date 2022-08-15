@@ -1,1 +1,35 @@
+I coded these solutions using Java to refamiliarize myself with the language before college.
+WEEK 1 (75 questions version)
+
+1. Two Sum - Create a HashMap<Integer, Integer> to store each (number, index) in the array. Iterate through the entirety of nums, and set target2 to the value of
+target - nums[i]. If the map contains target2 as a key, then the sum can be made, so return the indices. Otherwise, add nums[i], i to the HashMap and continue.
+
+2. Valid Parentheses - Create a Stack of Characters charStack. Iterate through each character of the entire string, and if the char is an open parentheses form, 
+just add it to the stack. Otherwise, if it is a closed parentheses form, check whether the stack is empty or if stack.pop() doesn't equal the open form of that
+exact parentheses. If either of these conditions are true, return false. At the end of the loop, if the stack is empty, return true; otherwise, return false. 
+
+3. Merge Two Sorted Lists - Create a new ListNode ret with a dummy head of 0 (this is really convenient for the problem; at the end, we just return ret.next). Then, 
+create an auxillary node retAux that points to the new ListNode that we will use to expand our list. While both list1 and list2 are not null, if list1.val > list2.val, 
+then we set retAux.next = list2 and list2 = list2.next. Otherwise, replace do the same but with list1. At the end of each iteration, do retAux = retAux.next. 
+At the end of the loop, either list1 or list2 will be null, so we just add the rest of whichever one isn't null to the rest of our new list. Then, we return ret.next,
+the head of our linked list (bc of the dummy head).
+
+4. Best Time To Buy And Sell Stock - Simple problem after some thought. Keep two variables profit (originally 0) and currMin (originally Integer.MAX_VALUE). Iterate
+through the array, and keep track of the minimum value of currMin (see if we can change it every iteration). Also, if our current profit is less than prices[i] - 
+currMin, then we set profit to that value. Remember, we have to buy stock on a day before we sell stock, so we can only look at selling after our currMin index. Then,
+at the end of the loop, just return profit. 
+
+5. Valid Palindrome - Two pointers method. First, create an empty string "", and iterate through the string and use the Character.isDigit(c) and Character.isLetter(c)
+to remove all unecessary characters from the input string in our empty string. Then, do emptystring.toLowerCase(), and use left pointers and right pointers, starting 
+at each end, and while lp <= rp, if character at lp != character at rp, then return false. Each iteration, do lp++ and rp--. If the end of the loop, is reached,
+return true.
+
+6. Invert Binary Tree - Recursive solution, as is with many tree questions. You can probably simplify my code more. Firsly, if initial root == null, return true,
+otherwise use invertTreeAuxillary function, which will return the inverted tree. In the function: if both node.left and node.right are null, just return the node (my
+code calls it root -- because it essentially is the root of a smaller subtree). If .right is null but .left is not, then we do node.left = invertTreeAux(root.right),
+and vice versa if .left is null but .right is not, then return node. Otherwise, both .left and .right are not null, so we must invert both of them, and we use a holder
+variable to store one of the subtrees to be able to do this. 
+
+7. Valid Anagram - Converted both strings to arrays of chars using .toCharArray(). Then, sort the arrays using built in Arrays.sort, create new Strings by doing
+String s2 = new String(char array) for both char arrays. If they are equal (remember to use .equals() not == for Strings), return true, otherwise return false.
 
