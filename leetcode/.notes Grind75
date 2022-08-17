@@ -49,11 +49,14 @@ sum to the max of nums[i] and sum+nums[i], and best to the max of best and sum. 
 q.val is greater than or equal to root.val or vice versa, return the root (they are on different sides of that root, so that root has to be the LCA. Otherwise,
 if both values are less than the root, set root = root.left. Otherwise, set root = root.right. 
 
-12. Balanced Binary Tree - Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firsly, if the initial root is null, then 
-just return true. Otherwise, use recursion and an auxillary function isBalancedAux. This function just calculates the height of a tree. We calculate the height 
-of the left and right subtree from the root, and if the absolute value of their difference is <= 1, then the ROOT is balanced. However, we also have to make sure 
-that EVERY node in the tree is also balanced, so we also have to check isBalanced(root.left) and isBalanced(root.right) -- this will check every node in the 
-original tree.
+12.Balanced Binary Tree - SLOWER TOP-DOWN APPROACH: Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firsly, if the 
+initial root is null, then just return true. Otherwise, use recursion and an auxillary function isBalancedAux. This function just calculates the height of a 
+tree. We calculate the height of the left and right subtree from the root, and if the absolute value of their difference is <= 1, then the ROOT is balanced. 
+However, we also have to make sure that EVERY node in the tree is also balanced, so we also have to check isBalanced(root.left) and isBalanced(root.right) -- 
+this will check every node in the original tree. FASTER BOTTOM-UP APPROACH: Lets us visit each node only once, making it O(n). We go all the way down recursion
+first, then start to come up, and if we find that one of the nodes isn't balanced, we just continue returning -1 back up the call stack. Also, I'm not sure
+whether you are supposed to return 0 or -1 in height functions, but 0 is the norm I think? For bottom up approach see this link:
+https://leetcode.com/problems/balanced-binary-tree/discuss/35691/The-bottom-up-O(N)-solution-would-be-better
 
 13. Linked List Cycle - My original and much slower solution used an ArrayList to keep track of what nodes we had visited so far, and if we ended up at one 
 that was visited again, there would be a cycle and we would return true, otherwise return false. A much better solution is 2 pointers with a slow pointer and 
