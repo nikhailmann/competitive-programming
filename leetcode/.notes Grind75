@@ -120,5 +120,11 @@ essentially checks whether the longestPath is still one from a lower subtree or 
 the maximum of left and right + 1, because we want to return (to a higher root's left or right variable) the maximum depth in the current tree, plus one to account
 for the root of the higher tree. Draw this out, it's not as hard as it seems.
 
-10. 
+10. Middle of the Linked List - This is pretty easy, just set both slow and fast ListNode pointer to the head, where slow increment one node at a time and fast 
+increments two at a time. If fast is null or fast.next is null, return slow. 
+
+11. Maximum Depth of a Binary Tree - This is literally just a sort of height function. If root == null, return 0, otherwise return 1 + the max between maxDepth
+of root.left and root.right.
+
+12. Contains Duplicate - I just used a HashMap to check whether the current element has already been in the array or not. You can also use a set. 
 
