@@ -6,7 +6,6 @@ class Solution {
             int index = ((int) a) - 65;
             letterTracker[index]++;
         }
-        int longestOdd = 0;
         int ans = 0;
         boolean foundOdd = false;
         for (int i = 0; i < letterTracker.length; i++) {
@@ -14,9 +13,7 @@ class Solution {
                 ans += letterTracker[i];
             } else {
                 foundOdd = true;
-                if (letterTracker[i] > longestOdd) {
-                    ans += letterTracker[i]-1;
-                }
+                ans += letterTracker[i]-1;
             }
         }
         if (foundOdd) return ans+1;
