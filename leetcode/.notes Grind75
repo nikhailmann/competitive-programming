@@ -12,7 +12,7 @@ exact parentheses. If either of these conditions are true, return false. At the 
 
 3. Merge Two Sorted Lists - Create a new ListNode ret with a dummy head of 0 (this is really convenient for the problem; at the end, we just return ret.next). Then, 
 create an auxillary node retAux that points to the new ListNode that we will use to expand our list. While both list1 and list2 are not null, if list1.val > list2.val, 
-then we set retAux.next = list2 and list2 = list2.next. Otherwise, replace do the same but with list1. At the end of each iteration, do retAux = retAux.next. 
+then we set retAux.next = list2 and list2 = list2.next. Otherwise, do the same but with list1. At the end of each iteration, do retAux = retAux.next. 
 At the end of the loop, either list1 or list2 will be null, so we just add the rest of whichever one isn't null to the rest of our new list. Then, we return ret.next,
 the head of our linked list (bc of the dummy head).
 
@@ -23,7 +23,7 @@ at the end of the loop, just return profit.
 
 5. Valid Palindrome - Two pointers method. First, create an empty string "", and iterate through the string and use the Character.isDigit(c) and Character.isLetter(c)
 to remove all unecessary characters from the input string in our empty string. Then, do emptystring.toLowerCase(), and use left pointers and right pointers, starting 
-at each end, and while lp <= rp, if character at lp != character at rp, then return false. Each iteration, do lp++ and rp--. If the end of the loop, is reached,
+at each end, and while lp <= rp, if character at lp != character at rp, then return false. Each iteration, do lp++ and rp--. If the end of the loop is reached,
 return true.
 
 6. Invert Binary Tree - Recursive solution, as is with many tree questions. You can probably simplify my code more. Firsly, if initial root == null, return true,
@@ -49,7 +49,7 @@ sum to the max of nums[i] and sum+nums[i], and best to the max of best and sum. 
 q.val is greater than or equal to root.val or vice versa, return the root (they are on different sides of that root, so that root has to be the LCA. Otherwise,
 if both values are less than the root, set root = root.left. Otherwise, set root = root.right. 
 
-12. Balanced Binary Tree - SLOWER TOP-DOWN APPROACH: Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firsly, if the 
+12. Balanced Binary Tree - SLOWER TOP-DOWN APPROACH: Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firstly, if the 
 initial root is null, then just return true. Otherwise, use recursion and an auxillary function isBalancedAux. This function just calculates the height of a 
 tree. We calculate the height of the left and right subtree from the root, and if the absolute value of their difference is <= 1, then the ROOT is balanced. 
 However, we also have to make sure that EVERY node in the tree is also balanced, so we also have to check isBalanced(root.left) and isBalanced(root.right) -- 
