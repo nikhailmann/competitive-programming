@@ -49,7 +49,7 @@ sum to the max of nums[i] and sum+nums[i], and best to the max of best and sum. 
 q.val is greater than or equal to root.val or vice versa, return the root (they are on different sides of that root, so that root has to be the LCA. Otherwise,
 if both values are less than the root, set root = root.left. Otherwise, set root = root.right. 
 
-12.Balanced Binary Tree - SLOWER TOP-DOWN APPROACH: Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firsly, if the 
+12. Balanced Binary Tree - SLOWER TOP-DOWN APPROACH: Probably the trickiest problem in week 1 for a specific reason. This answer uses recursion. Firsly, if the 
 initial root is null, then just return true. Otherwise, use recursion and an auxillary function isBalancedAux. This function just calculates the height of a 
 tree. We calculate the height of the left and right subtree from the root, and if the absolute value of their difference is <= 1, then the ROOT is balanced. 
 However, we also have to make sure that EVERY node in the tree is also balanced, so we also have to check isBalanced(root.left) and isBalanced(root.right) -- 
@@ -64,3 +64,61 @@ fast pointer. Firstly, if head is null, return false. Then, we create 2 ListNode
 will move one step at a time while the fast pointer will move two steps at a time. If there is a cycle, the fast pointer will eventually catch up to the slow one.
 If fast or fast.next ever equals null, then there is no cycle, so we return false. If we find that slow = fast, this means that the fast pointer has caught up, 
 meaning that there has to be a cycle, so return true. 
+
+
+
+WEEK 2
+
+1. Implement Queue Using Stacks - The first stack is used to insert elements onto it, and whenever a peek or pop call is made, you pop all the elements from stack 1
+onto stack 2 (provided that stack 2 is empty already), which reverses the order of stack 1 onto stack 2, basically creating a first in first out queue. Then, just
+peek or pop the top element on stack 2. To see if the queue is empty, just check if both stacks are empty.
+
+2. First Bad Version - This is just slightly altered binary search. Use lp = 1 and rp = n, and use the formula mid = lp + (rp - lp)/2 in order to prevent integer
+overflow. This formula is equivalent to the normal mid formula. Also, for this solution, we return rp as our answer, so the while loop is while lp < rp, not 
+lp <= rp. On each iteration, if isBadVersion(mid) is true, set rp to mid, otherwise set lp to mid + 1. Continue until lp >= rp, and return rp at the end.
+
+3. Ransom Note - My solution uses 2 int arrays of size 26 to represent each letter of the alphabet (note that only lowercase letters are used). It iterates through
+both ransomNote and magazine and uses charAt() and ascii numbers to fill the respective alphabet arrays with the proper number of letters. Then, once this 
+is done for both strings, it iterates from i = 0 to i < 26 and if ransomChecker[i] is ever greater than magazine[i], then you can't create the note, so return false.
+Otherwise return true. Another approach that uses less space is to just keep one array and do ++ for ransom loop and -- for magazine loop, and if any element in the 
+loop is positive then return false.
+
+4. Climbing Stairs - Straight up dynamic programming question! The dp array is of size 46 (max n is 45 + 1), and set initial condition dp[0] = 1 (there is 1 way
+to reach the top when you have to climb up zero stairs). To build the dp array, iterate from 1 to n inclusive, and use an inner for each loop for each 
+amount of steps (1 or 2). If i - j >= 0, then set dp[i] += dp[i-j]; At the end, return dp[n].
+
+5. Longest Palindrome - Similar to ransom note in terms of solution. Use an array to keep count of each letter (upper and lowercase this time, so we use an array
+of size 57 --> this is because even though there are 26x2 = 52 letter possibilities, the ascii codes between uppercase and lowercase letters are 7 numbers apart.
+Use a for loop to iterate through the string and keep track of every letter count. Then, declare an int ans = 0 and boolean foundOdd = false. Then, iterate through
+the letterTracker array, and if letterTracker[i] is even, add it to ans, and if it is odd, set foundOdd to true and add letterTracker[i] - 1 to ans. This is because
+in a palindrome only one letter can have an odd length (the middle one). So, if foundOdd = true, then just add one to ans at the end, and return ans. 
+
+6. Reverse Linked List - It is best to draw the algorithm out for this. Essentially, we initially set a ListNode prev to null, and while head != null, we store
+head.next in a ListNode next, set head.next to prev, set prev to head (so the head is now at the front of our prev), then set head to next. At the end, return prev.
+The recursive code for this just does the same thing using recursive logic. 
+
+7. Majority Element - This is moore's majority voting algorithm. A brute-force method is to just use a HashMap to keep track of every element, yet this is very
+slow. Another way is to just sort the array and return the middle element (n log n). The O(n) method is two keep two variables ret (our answer) and count. Initially
+ret is set to nums[0] and count is set to 1. Then, iterate from index 1 to the end of nums, and if count == 0, then we set nums[i] to ret (changing our return ans 
+to the current element). If nums[i] = ret, then we increment count, otherwise we decrement count. This works because the majority element is strictly present more
+than n/2 times, so it has to have a positive count value by the end of the array,
+
+8. Add Binary - My original solution was to convert each binary number to an int, add the integers together, then return the result in binary form. This works, but
+it won't for extremely long strings, so we have to use a different approach: simply just carry addition. Use a StringBuilder object and declare two variables i and j
+that represent a.length -1 and b.length -1 respectively. Also use a carry variable that is initally zero. Use a while loop for while i >= 0 OR j >= 0, and set and int
+sum = carry. Then, as long as the index is valid, add a/b .charAt(i) - '0' to sum (the minus '0' is just used to make the result an integer). Then, append sum%2 to 
+ans, (because we have to see if we have to carry or not), and set carry to sum/2. Carry can either be 1 or 0. Then, decrease i and j by 1 and continue. At the end
+of the loop, we have to see if there is still a carry, so if carry > 0, just append carry to our StringBuilder object. To return our answer, we have to return the
+reverse() of it .toString(). This problem is pretty easy to just draw it out.
+
+9. Diameter of Binary Tree - This isn't necessarily a hard problem, but it can be a little tricky to understand. The best thing to do is draw a tree out and 
+go through it yourself. We keep an array of one element to help us keep track of the longestPath in any subtree in every recursive call without having to use 
+a global variable (it isn't good practice to use them in java). Our answer to return will be the element in longestPath. This is a bottom-up approach for recursion,
+which is faster than the top-down one since we visit each node only once. The commented out slower solution shows the top-down approach. We first recurse all the way
+down to the bottom parts of our tree, and if node == null, we return 0. Otherwise, we set longestPath[0] to the max of longestPath[0] and left + right. This 
+essentially checks whether the longestPath is still one from a lower subtree or one that we can now create with our current root. Our return statement is 
+the maximum of left and right + 1, because we want to return (to a higher root's left or right variable) the maximum depth in the current tree, plus one to account
+for the root of the higher tree. Draw this out, it's not as hard as it seems.
+
+10. 
+
