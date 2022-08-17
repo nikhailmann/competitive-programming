@@ -55,8 +55,8 @@ tree. We calculate the height of the left and right subtree from the root, and i
 However, we also have to make sure that EVERY node in the tree is also balanced, so we also have to check isBalanced(root.left) and isBalanced(root.right) -- 
 this will check every node in the original tree. FASTER BOTTOM-UP APPROACH: Lets us visit each node only once, making it O(n). We go all the way down recursion
 first, then start to come up, and if we find that one of the nodes isn't balanced, we just continue returning -1 back up the call stack. Also, I'm not sure
-whether you are supposed to return 0 or -1 in height functions, but 0 is the norm I think? For bottom up approach see this link:
-https://leetcode.com/problems/balanced-binary-tree/discuss/35691/The-bottom-up-O(N)-solution-would-be-better
+whether you are supposed to return 0 or -1 in height functions: use 0 if you count # of nodes as height, and -1 if you count # of edges as height. For bottom up 
+approach see this link: https://leetcode.com/problems/balanced-binary-tree/discuss/35691/The-bottom-up-O(N)-solution-would-be-better
 
 13. Linked List Cycle - My original and much slower solution used an ArrayList to keep track of what nodes we had visited so far, and if we ended up at one 
 that was visited again, there would be a cycle and we would return true, otherwise return false. A much better solution is 2 pointers with a slow pointer and 
