@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+class Solution { // bottom up solution like balanced binary tree function!
     
     public int diameterOfBinaryTree(TreeNode root) {
         if (root == null) return 0;
