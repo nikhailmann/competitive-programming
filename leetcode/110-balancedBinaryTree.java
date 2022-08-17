@@ -16,17 +16,17 @@
 class Solution { //Bottom up solution!
     public boolean isBalanced(TreeNode root) {
         if (root == null) return true;
-        return isBalancedAux(root) != -2;
+        return isBalancedAux(root) != -1;
     }
     
     public Integer isBalancedAux(TreeNode root) {
         if (root == null) {
-            return -1;
+            return 0;
         }
         int l = isBalancedAux(root.left);
         int r = isBalancedAux(root.right);
-        if (l == -2 || r == -2 || Math.abs(l-r) > 1) {
-            return -2;
+        if (l == -1 || r == -1 || Math.abs(l-r) > 1) {
+            return -1;
         }
         return 1 + Math.max(l, r);
         
@@ -44,7 +44,7 @@ class Solution {
     
     public Integer isBalancedAux(TreeNode root) {
         if (root == null) {
-            return -1; //-1 not 0
+            return 0;
         } else {
             return 1 + Math.max(isBalancedAux(root.left), isBalancedAux(root.right));
         }
