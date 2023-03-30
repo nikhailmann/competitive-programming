@@ -1,0 +1,49 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int _val, ArrayList<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
+*/
+
+class Solution {
+    public Node cloneGraph(Node node) {
+        if (node == null) {
+            return null;
+        }
+        
+        HashMap<Integer, Node> visited = new HashMap<>();
+        Node newGraph;
+        newGraph = cloneGraphAux(node, 1, visited);
+
+        return newGraph;
+
+    }
+
+    private Node cloneGraphAux(Node oldGraphCurr, int value, HashMap<Integer, Node> visited) {
+        if (visited.containsKey(value)) {
+            return visited.get(value);
+        }
+
+        Node newGraphCurr = new Node(value);
+        visited.put(value, newGraphCurr);
+
+        for (int i = 0; i < oldGraphCurr.neighbors.size(); i++) {
+            newGraphCurr.neighbors.add(cloneGraphAux(oldGraphCurr.neighbors.get(i), oldGraphCurr.neighbors.get(i).val, visited));
+        }
+
+        return newGraphCurr;
+    }
+}
