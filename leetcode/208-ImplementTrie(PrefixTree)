@@ -1,0 +1,54 @@
+class Trie {
+    private Trie[] arr;
+    boolean isWord;
+
+    public Trie() {
+        arr = new Trie[26];
+        isWord = false;
+        
+    }
+    
+    public void insert(String word) {
+        if (word != null && word != "") {
+            int firstChar = (int) word.charAt(0) - 97;
+            if (arr[firstChar] == null) {
+                arr[firstChar] = new Trie();
+            }
+            arr[firstChar].insert(word.substring(1));
+        } else if (word == "") {
+            isWord = true;
+        }
+    }
+    
+    public boolean search(String word) {
+        if (word != null && word != "") {
+            int firstChar = (int) word.charAt(0) - 97;
+            if (arr[firstChar] == null) {
+                return false;
+            }
+            return arr[firstChar].search(word.substring(1));
+        }
+        return isWord;
+        
+    }
+    
+    public boolean startsWith(String prefix) {
+        if (prefix != null && prefix != "") {
+            int firstChar = (int) prefix.charAt(0) - 97;
+            if (arr[firstChar] == null) {
+                return false;
+            } else {
+                return arr[firstChar].startsWith(prefix.substring(1));
+            }
+        }
+        return true;
+    }
+}
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie obj = new Trie();
+ * obj.insert(word);
+ * boolean param_2 = obj.search(word);
+ * boolean param_3 = obj.startsWith(prefix);
+ */
