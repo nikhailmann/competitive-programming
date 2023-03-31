@@ -1,0 +1,50 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || prerequisites == null || prerequisites.length == 0) {
+            return true;
+        }
+        ArrayList<ArrayList<Integer>> courses = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < numCourses; i++) {
+            courses.add(new ArrayList<Integer>());
+        }
+
+        // construct graph 
+        for (int i = 0; i < prerequisites.length; i++) {
+            courses.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        }
+
+        // search for cycles
+        int[] visited = new int[numCourses];
+
+        for (int i = 0; i < numCourses; i++) {
+            if (dfsCheckCycle(courses, i, visited) == false) {
+                return false;
+            }
+        }
+
+        return true;
+
+        
+    }
+
+    private boolean dfsCheckCycle(ArrayList<ArrayList<Integer>> courses, int course, int[] visited) {
+        visited[course] = 1;
+
+        ArrayList<Integer> neighbors = courses.get(course);
+
+        for (int i = 0; i < neighbors.size(); i++) {
+            if (visited[neighbors.get(i)] == 1) {
+                return false;
+            } else if (visited[neighbors.get(i)] == 0) {
+                if (!dfsCheckCycle(courses, neighbors.get(i), visited)) {
+                    return false;
+                }
+            }
+            
+
+        }
+
+        visited[course] = 2;
+        return true;
+    }
+}
